@@ -3,17 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (savedData) {
     cart = JSON.parse(savedData); // /JSON.parse konvertuoja reikmses i stringa ir pan is tekstines i objekta
-
+    item1Render();
+    plusOne(totalCount);
+    item2Render();
+    plusOne(totalCount);
+    item3Render();
+    plusOne(totalCount);
+    item4Render();
+    plusOne(totalCount);
     };
 
 });
 
-document.querySelector('.cart-icon').addEventListener('click', () => {
+document.querySelector('.cart-icon').addEventListener('click', () => {  // paspaudus ant cart iconos isoka langas, kuriame bus atvaizduojamas 'pirkiniu maiselis'
     document.querySelector('.window').classList.toggle('active');
     document.querySelector('.body-container').classList.toggle('body-black');
 });
 
-document.querySelector('.x-exit').addEventListener('click', () => {
+document.querySelector('.x-exit').addEventListener('click', () => { //cia ant isokancio lango X isjungimo langas
     document.querySelector('.window').classList.toggle('active');
 });
 
@@ -26,17 +33,12 @@ const totalSum = document.querySelector('.total-sum');
 const buttonWindow = document.querySelector('.button-window');
 const windowsTotalSum = document.querySelector('.total-sum-window');
 
-function getInputValue (selector, selector2) {
-    const input = document.querySelector(selector);
-    return input ? input.value : null;
-}
-
 function plusOne (element) {
-    element.textContent = Number(element.textContent) + 1;
+    element.textContent = Number(element.textContent) + 1; //funkcija kur kai paspaudi add to cart prie 0 items kyla su kiekvienos prekes pridejimu prie cart
 }
 
 function minusOne (element) {
-    element.textContent = Number(element.textContent) -1;
+    element.textContent = Number(element.textContent) -1; // funkcija, kuri veikia kaip ir plus one tik atima, jeigu vartotojas is 'pirkiniu maiselio' removina preke
 }
 
 let products = {
@@ -66,8 +68,8 @@ let products = {
 
 
 // item 1
-const item1Nametxt = document.querySelector('#item-name-1');
-item1Nametxt.textContent = JSON.stringify(products.item1.name);
+const item1Nametxt = document.querySelector('#item-name-1'); // cia paselektinu html vieta
+item1Nametxt.textContent = JSON.stringify(products.item1.name); // ir atvaizduoju ka noriu is objekto i html
 const item1price = document.querySelector('#item1-price');
 item1price.textContent = products.item1.price;
 
@@ -91,7 +93,7 @@ const item4price = document.querySelector('#item4-price');;
 item4price.textContent = products.item4.price;
 
 function item1Render () {
-
+ // funkcija kuri renderina viska i pirkiniu maiseli 
 
     const item1Div = document.createElement('div');
     item1Div.className = 'item-div';
@@ -100,18 +102,18 @@ function item1Render () {
     deleteBtn.textContent = 'Remove';
     deleteBtn.className = 'remove-btn';
 
-    deleteBtn.addEventListener('click', event => {
+    deleteBtn.addEventListener('click', event => { // remove buttonas 
         item1Div.remove();
         minusOne(totalCount);
-        totalSum.textContent = Number(totalSum.textContent) - products.item1.price;
-        windowsTotalSum.textContent = Number(windowsTotalSum.textContent) - products.item1.price;
+        totalSum.textContent = Number(totalSum.textContent) - products.item1.price; // kai paspaudzia remove ant prekes tai ir kaina minusuojasi navi bar lange
+        windowsTotalSum.textContent = Number(windowsTotalSum.textContent) - products.item1.price; // kai paspaudzia remove ant prekes tai ir kaina minusuojasi cia isokanciam langa kur total price
     });
 
 
-    totalSum.textContent = Number(totalSum.textContent) + products.item1.price;
-    windowsTotalSum.textContent = Number(windowsTotalSum.textContent) + products.item1.price;      
+    totalSum.textContent = Number(totalSum.textContent) + products.item1.price; // kai paspaudzia add to cart dideja suma  navi bar lange
+    windowsTotalSum.textContent = Number(windowsTotalSum.textContent) + products.item1.price;     // kai paspaudzia add to cart dideja suma isokancia langa total price 
 
-    [products.item1.name, products.item1.price + '$'].forEach(text => {
+    [products.item1.name, products.item1.price + '$'].forEach(text => { //for each praeina pro objektus ir renderina teksta i html
         const item1Text = document.createElement('p');
 
         item1Text.className = 'itemText';
@@ -119,18 +121,18 @@ function item1Render () {
         item1Div.appendChild(item1Text);
     });
 
-    document.querySelector('.order-btn').addEventListener('click', () => {
+    document.querySelector('.order-btn').addEventListener('click', () => { // kai paspaudzia buy now viskas issitrina
         item1Div.remove();
         windowsTotalSum.textContent = '0';
         totalSum.textContent = '0';
         totalCount.textContent = '0';
     })
-    const selectItem1 = document.getElementById('item1-size').value;
+    const selectItem1 = document.getElementById('item1-size').value; // paselektinu select size ir atvaizduoju 'pirkiniu maiselyje'
     const selectItemTxt = document.createElement('p');
     selectItemTxt.textContent = `size: ${selectItem1} `;
  
 
-    item1Div.appendChild(selectItemTxt);
+    item1Div.appendChild(selectItemTxt); // viska appendinu i html 
     cart.push(item1Div.textContent);
     item1Div.appendChild(deleteBtn);
     cartWindowOutput.appendChild(item1Div);
@@ -138,7 +140,7 @@ function item1Render () {
     console.log(cart);        
 }
 
-function item2Render () {
+function item2Render () { // viskas tas pats vyksta kas ir item1render()
 
     const item1Div = document.createElement('div');
     item1Div.className = 'item-div';
@@ -185,7 +187,7 @@ function item2Render () {
     console.log(cart);    
 }
 
-function item3Render () {
+function item3Render () { // viskas tas pats vyksta kas ir item1render()
 
     const item1Div = document.createElement('div');
     item1Div.className = 'item-div';
@@ -232,7 +234,7 @@ function item3Render () {
     console.log(cart);       
 }
 
-function item4Render () {
+function item4Render () { // viskas tas pats vyksta kas ir item1render()
 
     const item1Div = document.createElement('div');
     item1Div.className = 'item-div';
@@ -290,7 +292,7 @@ mainItems.addEventListener('click', event => {
         switch (event.target.name) {
             case 'item1':
                 item1Render();
-                plusOne(totalCount);         
+                plusOne(totalCount); // kad paspaudus kiltu nuo 0 item
                 
                 break;
             case 'item2':
